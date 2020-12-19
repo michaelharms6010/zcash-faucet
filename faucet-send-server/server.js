@@ -124,7 +124,7 @@ server.post("/sendtaz", async (req,res) => {
                 `echo ${err} >> error.log`
                 res.status(500).json({message: "failed"})})
     } else {
-        res.status(400).json({err: "You can only tap the faucet once an hour."})
+        res.status(400).json({err: "You can only tap the faucet once every 15 minutes."})
     }
     
 })

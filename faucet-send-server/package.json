@@ -1,0 +1,43 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pt11-word-find/back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pt11-word-find/back-end/issues"
+  },
+  "homepage": "https://github.com/pt11-word-find/back-end#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
+    "blake3": "^2.1.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.12",
+    "knex-cleaner": "^1.3.0",
+    "morgan": "^1.10.0",
+    "pg": "^7.18.2",
+    "poker-evaluator": "^0.3.1",
+    "pusher": "^3.0.1",
+    "sqlite3": "^4.1.1",
+    "websocket": "^1.0.32"
+  }
+}

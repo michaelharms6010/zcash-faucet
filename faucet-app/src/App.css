@@ -1,0 +1,21 @@
+.main {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.main input {
+  width: 400px;
+}
+
+.main button {
+  width: 80px
+}
+
+
+.faucet-container {
+
+}

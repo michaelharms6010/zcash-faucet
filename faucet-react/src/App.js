@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="main">
       <div className="faucet-container">
-        <h2>Testnet Zcash Faucet</h2>
+        <h2>Testnet Zcash (TAZ) Faucet</h2>
         <div className="input-button-pair">
           <textarea 
             name="to_address"

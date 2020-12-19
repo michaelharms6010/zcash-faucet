@@ -7,10 +7,24 @@ const zaddrRegex = /^ztestsapling[a-z0-9]{76}$/i
 const taddrRegex = /^tm[a-z0-9]{33}$/i
 const isValidAddress = address => zaddrRegex.test(address) || taddrRegex.test(address)
 
+var pusher;
+
 function App() { 
 
   const [address, setAddress] = React.useState("")
   const [message, setMessage] = React.useState(".")
+
+  const toggleDots = str => {
+    return str.slice(0,-8) + [...str.slice(-7)].map(item => item === " " ? "." : " ").join("")
+  }
+  React.useEffect(() => {
+    pusher = new Pusher('4e18f1b8741914d03145', {
+      cluster: 'us2'
+    });
+    Pusher.logToConsole = true;
+
+    
+  }, [])
 
   const handleChange = e => setAddress(e.target.value.split(/[ \n\t]/).join(""))
 
@@ -22,12 +36,14 @@ function App() {
       return
     } else {
       setMessage("Sending TAZ . . . ")
+      
     }
 
     Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
     .then(r => {
       console.log(r)
       if (r.data.opid) {
+
         var channel = pusher.subscribe('tx-notif');
         channel.bind(r.data.opid, function(data) {
           setMessage(`Sent TAZ - txid: ${data.txid}`)
@@ -48,11 +64,7 @@ function App() {
     })
   }
 
-    Pusher.logToConsole = true;
 
-    var pusher = new Pusher('4e18f1b8741914d03145', {
-      cluster: 'us2'
-    });
 
     
 
@@ -70,7 +82,7 @@ function App() {
         </div>
         <h3 style={{color: message === "." ? "#333" : "#f9bb00"}} className="zaddr">{message}</h3>
       </div>
-      <p id="disclaimer">With love from Mike at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
+      <p id="disclaimer">With love from <a href="https://twitter.com/michaelharms70" target="_blank" rel="noopener noreferrer" >Mike</a> at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
     </div>
   );
 }

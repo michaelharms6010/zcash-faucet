@@ -2,7 +2,8 @@ const db = require("../data/db-config")
 
 module.exports = {
     canGetTx,
-    saveTx
+    saveTx,
+    addTxId
 }
 
 async function canGetTx(ip) {
@@ -10,8 +11,13 @@ async function canGetTx(ip) {
     const txs = await db("transactions").where("ip", "=", ip).orderBy("datetime", "desc")
     console.log("timeThreshold", timeThreshold)
     console.log("txs[0].datetime", +txs[0].datetime > timeThreshold)
-    return !txs[0] || !(+txs[0].datetime > timeThreshold)
+    if (!txs[0]) return true
+    return  !(+txs[0].datetime > timeThreshold)
 
+}
+
+function addTxId(opid, txid) {
+    return db("transactions").where({opid}).update({txid})
 }
 
 async function saveTx(zaddr, ip, opid, amount) {

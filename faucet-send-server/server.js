@@ -5,7 +5,8 @@ const morgan = require("morgan");
 const axios = require("axios")
 const rpcCreds = process.env.ZCASH_RPC_CREDS;
 const creds = 'Basic ' + Buffer.from(rpcCreds).toString('base64').trim()
-const {canGetTx, saveTx} = require("./transactions/transaction-model")
+const {canGetTx, saveTx, addTxId} = require("./transactions/transaction-model")
+const sleep = require("./helpers/sleep")
 
 const TESTING_ZADDR = "ztestsapling18ul4pykvaglhjtfvgad7prgsks8fnx906xtjmq6vx3p8njqpurwhsndvf06yvw09ct7cwandp7w"
 
@@ -45,6 +46,7 @@ async function sendZcash(zaddr, amount) {
 
 async function getStatus(opid) {
     let r;
+    console.log([JSON.stringify([opid])])
     try {
         r = await axios({
             method: 'post',
@@ -57,11 +59,11 @@ async function getStatus(opid) {
             data: {
                 "jsonrpc": "1.0",
                 "id":"curltest", 
-                "method": "z_sendmany", 
-                "params": [process.env.MASTER_ZADDR, [{"address": zaddr ,"amount": amount, "memo": "00"}]] 
+                "method": "z_getoperationstatus", 
+                "params": [[opid]] 
             }
         })
-    
+        console.log(r.data.result.status)
         return r
     } catch (err) {
         console.log(err.response.data.error)
@@ -78,8 +80,24 @@ server.post("/sendtaz", async (req,res) => {
         sendZcash(zaddr, amount)
             .then(r => {
                 const opid = r.data.result;
-                saveTx(zaddr, ip, opid, amount).then(r => {
-                    res.status(200).json({message: "success"})
+                saveTx(zaddr, ip, opid, amount).then(async r => {
+                    let txComplete = false;
+                    let result;
+                    while (!txComplete) {
+                        let status = await getStatus(opid);
+                        console.log(status.data.result)
+                        await sleep(1000)
+                        if (status.data.result[0].status != "executing") {
+                            txComplete = true;
+                            result = status.data.result[0]
+                        }
+                    }
+                    if (result.status == "success") {
+                        await addTxId(opid, result.result.txid)
+                        res.status(200).json({message: "Success", txid: result.result.txid })
+                    } else {
+                        res.status(200).json({message: "success"})
+                    }
                 }).catch(err => res.status(500))
             })
             .catch(err => {

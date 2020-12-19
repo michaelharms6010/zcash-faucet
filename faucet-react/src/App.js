@@ -10,7 +10,7 @@ const isValidAddress = address => zaddrRegex.test(address) || taddrRegex.test(ad
 function App() { 
 
   const [address, setAddress] = React.useState("")
-  const [message, setMessage] = React.useState("")
+  const [message, setMessage] = React.useState(".")
 
   const handleChange = e => setAddress(e.target.value.split(/[ \n\t]/).join(""))
 
@@ -68,7 +68,7 @@ function App() {
           />
           <button onClick={sendTaz}>Request</button>
         </div>
-        {message && <h3 className="zaddr">{message}</h3>}
+        <h3 style={{color: message === "." ? "#333" : "#f9bb00"}} className="zaddr">{message}</h3>
       </div>
       <p id="disclaimer">With love from Mike at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
     </div>

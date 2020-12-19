@@ -46,7 +46,11 @@ function App() {
 
         var channel = pusher.subscribe('tx-notif');
         channel.bind(r.data.opid, function(data) {
+          if (data.txid) {
           setMessage(`Sent TAZ - txid: ${data.txid}`)
+          } else {
+            setMessage(data.error)
+          }
         });      
       } else {
         setMessage(`Failed`)

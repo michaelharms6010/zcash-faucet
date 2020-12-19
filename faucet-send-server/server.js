@@ -112,6 +112,9 @@ server.post("/sendtaz", async (req,res) => {
                         });
                         res.status(200).json({message: "Success", txid: result.result.txid })
                     } else {
+                        pusher.trigger("tx-notif", opid, {
+                            error: "Zcashd failed the operation. Try again in a minute."
+                        });
                         res.status(200).json({message: "success"})
                     }
                 }).catch(err => res.status(500))

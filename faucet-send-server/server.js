@@ -88,7 +88,7 @@ server.post("/sendtaz", async (req,res) => {
     var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
     let amount = (Math.random() / 1000 + 0.0001 ).toFixed(8) 
-    if (await canGetTx(ip)) {
+    if (await canGetTx(ip, zaddr)) {
         sendZcash(zaddr, amount)
             .then(r => {
                 const opid = r.data.result;

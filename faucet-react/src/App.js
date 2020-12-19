@@ -74,7 +74,7 @@ function App() {
         <h2>Testnet Zcash (TAZ) Faucet</h2>
         <div className="input-button-pair">
           <textarea 
-            placeholder="ztestsapling... or tm......."
+            placeholder="ztestsapling... or tm..."
             name="to_address"
             value={address}
             onChange={handleChange} 

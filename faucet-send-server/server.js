@@ -37,7 +37,7 @@ async function sendZcash(zaddr, amount) {
                 "params": [process.env.MASTER_ZADDR, [{"address": zaddr ,"amount": amount, "memo": "00"}]] 
             }
         })
-    
+        console.log(r)
         return r
     } catch (err) {
         console.log(err.response.data.error)
@@ -79,7 +79,7 @@ server.post("/sendtaz", async (req,res) => {
     if (await canGetTx(ip)) {
         sendZcash(zaddr, amount)
             .then(r => {
-                if (r.data) const opid = r.data.result;
+                const opid = r.data.result;
                 saveTx(zaddr, ip, opid, amount).then(async r => {
                     let txComplete = false;
                     let result;
@@ -102,6 +102,7 @@ server.post("/sendtaz", async (req,res) => {
             })
             .catch(err => {
                 console.log(err)
+                `echo ${err} >> error.log`
                 res.status(500).json({message: "failed"})})
     } else {
         res.status(400).json({err: "You can only tap the faucet once an hour."})

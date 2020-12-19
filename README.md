@@ -2,15 +2,23 @@
 
 This is a simple testnet faucet. You can set it up on any machine running a zcashd fullnode relatively simply.
 
-Environment configuration:
-at the root `/faucet-send-server/`, create a `.env` file. You'll need to specify two values in it.
+## Installation
+
+Clone this lovely repo. do an `npm i` in both the server and the react app directories.
+
+### Prereqs
+
+- A server. I'm using a t2.large.
+- Nodejs. I mostly use Node 12.20. Google "how to get/use nvm" if you don't know how to install Node.
+
+#### Environment configuration:
+
+In `/faucet-send-server/`, create a `.env` file. You'll need to specify two values in it.
 
 ```
 ZCASH_RPC_CREDS=<yourusername>:<yourpassword>
-MASTER_ZADDR=ztestsapling.... (a funded zaddr where faucet payments will come from)
+MASTER_ZADDR=ztestsapling.... (The zaddr that funds faucet payments)
 ```
-
-From there you can simply clone the repo, do `npm i` inside both directories
 
 in `/faucet-send-server`, run `npm i` then `npm run server` (or better, use pm2 to run the server) will bring up the wallet api (this exists only so Chrome can get cors headers that it's happy with when we do our zcash rpc. if you know a better way, please let me know)
 
@@ -37,4 +45,6 @@ server {
 }
 ```
 
-Everything else in my nginx conf is just certbot  boilerplate.
+Everything else in my nginx conf is just certbot boilerplate.
+
+Assuming your server has http/https open and configured... you should be set to fly and faucet out some coinage. Nice!

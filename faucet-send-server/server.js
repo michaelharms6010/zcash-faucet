@@ -41,7 +41,6 @@ async function sendZcash(zaddr, amount) {
         return r
     } catch (err) {
         console.log(err.response.data.error)
-        `echo ${err.response.data.error} >> error.log`
     }
 }
 
@@ -66,7 +65,6 @@ async function getStatus(opid) {
         console.log(r.data.result.status)
         return r
     } catch (err) {
-        `echo ${err.response.data.error} >> error.log`
         console.log(err.response.data.error)
     }
 }

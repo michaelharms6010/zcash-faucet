@@ -55,7 +55,7 @@ function App() {
         </div>
         {message && <h3>{message}</h3>}
       </div>
-      <p id="disclaimer">With love by Mike at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
+      <p id="disclaimer">With love from Mike at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
     </div>
   );
 }

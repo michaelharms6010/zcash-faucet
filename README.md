@@ -3,7 +3,7 @@
 This is a simple testnet faucet. You can set it up on any machine running a zcashd fullnode relatively simply.
 
 Environment configuration:
-at the root `/raucet-send-server/`, create a `.env` file. You'll need to specify two values in it.
+at the root `/faucet-send-server/`, create a `.env` file. You'll need to specify two values in it.
 
 ```
 ZCASH_RPC_CREDS=<yourusername>:<yourpassword>

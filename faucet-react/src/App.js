@@ -1,6 +1,7 @@
 import './App.css';
 import Axios from "axios"
 import React from "react"
+import Pusher from 'pusher-js';
 
 const zaddrRegex = /^ztestsapling[a-z0-9]{76}$/i
 const taddrRegex = /^tm[a-z0-9]{33}$/i

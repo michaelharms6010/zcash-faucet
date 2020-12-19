@@ -14,6 +14,18 @@ const TESTING_ZADDR = "ztestsapling18ul4pykvaglhjtfvgad7prgsks8fnx906xtjmq6vx3p8
 
 const server = express();
 
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+  appId: "1126204",
+  key: "4e18f1b8741914d03145",
+  secret: "3d2e94c5b0a7d3af6e76",
+  cluster: "us2",
+  useTLS: true
+});
+
+
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
@@ -94,6 +106,9 @@ server.post("/sendtaz", async (req,res) => {
                     }
                     if (result.status == "success") {
                         await addTxId(opid, result.result.txid)
+                        pusher.trigger("tx-notif", opid, {
+                            txid: result.result.txid
+                        });
                         res.status(200).json({message: "Success", txid: result.result.txid })
                     } else {
                         res.status(200).json({message: "success"})

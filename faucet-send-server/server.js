@@ -79,7 +79,7 @@ server.post("/sendtaz", async (req,res) => {
     if (await canGetTx(ip)) {
         sendZcash(zaddr, amount)
             .then(r => {
-                const opid = r.data.result;
+                if (r.data) const opid = r.data.result;
                 saveTx(zaddr, ip, opid, amount).then(async r => {
                     let txComplete = false;
                     let result;

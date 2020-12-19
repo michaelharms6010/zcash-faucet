@@ -34,7 +34,9 @@ function App() {
     })
     .catch(err => {
       try {
+        if (err && err.response && err.response.data && err.response.data.err) {
         setMessage(err.response.data.err)
+        }
       } catch {
         setMessage("Unknown Wallet Error")
       }

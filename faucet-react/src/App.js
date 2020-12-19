@@ -23,7 +23,7 @@ function App() {
       setMessage("")
     }
 
-    Axios.post("http://localhost:5000/sendtaz", {address})
+    Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
     .then(r => console.log(r))
     .catch(err => {
       try {

@@ -1,10 +1,11 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable("transactions", tbl => {
-      tbl.string("txid")
+      tbl.string("opid").uniqui()
       tbl.string("amount")
       tbl.integer("datetime")
       tbl.string("ip")
+      tbl.string("zaddr")
     })
 };
 

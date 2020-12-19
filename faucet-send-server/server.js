@@ -7,6 +7,9 @@ const rpcCreds = process.env.ZCASH_RPC_CREDS;
 const creds = 'Basic ' + Buffer.from(rpcCreds).toString('base64').trim()
 const {canGetTx, saveTx} = require("./transactions/transaction-model")
 
+const TESTING_ZADDR = "ztestsapling18ul4pykvaglhjtfvgad7prgsks8fnx906xtjmq6vx3p8njqpurwhsndvf06yvw09ct7cwandp7w"
+
+
 
 const server = express();
 
@@ -34,32 +37,33 @@ async function sendZcash(zaddr, amount) {
             }
         })
     
-        console.log(r)
-    
-    return r
+        return r
     } catch (err) {
         console.log(err.response.data.error)
     }
 }
 
-server.post("/sendtaz", (req,res) => {
+server.post("/sendtaz", async (req,res) => {
     let zaddr = req.body.address;
     var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
-    let amount = (Math.random() / 1000).toFixed(8) + 0.0001
-    if (canGetTx(ip)) {
+    let amount = (Math.random() / 1000 + 0.0001 ).toFixed(8) 
+    if (await canGetTx(ip)) {
         sendZcash(zaddr, amount)
             .then(r => {
-                
-                res.status(200).json(r)
+                const opid = r.data.result;
+                saveTx(zaddr, ip, opid, amount).then(r => {
+                    res.status(200).json({message: "success"})
+                }).catch(err => res.status(500))
             })
-            .catch(err => res.status(500).json(err))
+            .catch(err => {
+                console.log(err)
+                res.status(500).json({message: "failed"})})
     } else {
         res.status(400).json({err: "You can only tap the faucet once an hour."})
     }
     
 })
-
 
 
 server.get("/", (req,res) => {

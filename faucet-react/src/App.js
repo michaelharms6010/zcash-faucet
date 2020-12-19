@@ -14,9 +14,6 @@ function App() {
   const [address, setAddress] = React.useState("")
   const [message, setMessage] = React.useState(".")
 
-  const toggleDots = str => {
-    return str.slice(0,-8) + [...str.slice(-7)].map(item => item === " " ? "." : " ").join("")
-  }
   React.useEffect(() => {
     pusher = new Pusher('4e18f1b8741914d03145', {
       cluster: 'us2'
@@ -77,7 +74,7 @@ function App() {
         <h2>Testnet Zcash (TAZ) Faucet</h2>
         <div className="input-button-pair">
           <textarea 
-            placeholder="ztestsapling..."
+            placeholder="ztestsapling... or tm......."
             name="to_address"
             value={address}
             onChange={handleChange} 

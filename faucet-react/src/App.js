@@ -21,7 +21,7 @@ function App() {
     pusher = new Pusher('4e18f1b8741914d03145', {
       cluster: 'us2'
     });
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
     
   }, [])

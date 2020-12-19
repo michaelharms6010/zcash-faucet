@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const axios = require("axios")
 const rpcCreds = process.env.ZCASH_RPC_CREDS;
 const creds = 'Basic ' + Buffer.from(rpcCreds).toString('base64').trim()
+const {canGetTx, saveTx} = require("./transactions/transaction-model")
 
 
 const server = express();
@@ -43,10 +44,20 @@ async function sendZcash(zaddr, amount) {
 
 server.post("/sendtaz", (req,res) => {
     let zaddr = req.body.address;
+    var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+
     let amount = (Math.random() / 1000).toFixed(8) + 0.0001
-    sendZcash(zaddr, amount)
-        .then(r => res.status(200).json(r))
-        .catch(err => res.status(500).json(err))
+    if (canGetTx(ip)) {
+        sendZcash(zaddr, amount)
+            .then(r => {
+                
+                res.status(200).json(r)
+            })
+            .catch(err => res.status(500).json(err))
+    } else {
+        res.status(400).json({err: "You can only tap the faucet once an hour."})
+    }
+    
 })
 
 

@@ -34,7 +34,7 @@ async function sendZcash(zaddr, amount) {
                 "jsonrpc": "1.0",
                 "id":"curltest", 
                 "method": "z_sendmany", 
-                "params": [process.env.MASTER_ZADDR, [{"address": zaddr ,"amount": amount, "memo": "00"}]] 
+                "params": [process.env.MASTER_ZADDR, [{"address": zaddr ,"amount": amount }]] 
             }
         })
         console.log(r)

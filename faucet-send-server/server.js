@@ -41,6 +41,7 @@ async function sendZcash(zaddr, amount) {
         return r
     } catch (err) {
         console.log(err.response.data.error)
+        `echo ${err.response.data.error} >> error.log`
     }
 }
 
@@ -66,6 +67,7 @@ async function getStatus(opid) {
         console.log(r.data.result.status)
         return r
     } catch (err) {
+        `echo ${err.response.data.error} >> error.log`
         console.log(err.response.data.error)
     }
 }
@@ -102,6 +104,7 @@ server.post("/sendtaz", async (req,res) => {
             })
             .catch(err => {
                 console.log(err)
+                `echo ${err} >> error.log`
                 res.status(500).json({message: "failed"})})
     } else {
         res.status(400).json({err: "You can only tap the faucet once an hour."})

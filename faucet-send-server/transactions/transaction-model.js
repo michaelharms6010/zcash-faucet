@@ -7,7 +7,6 @@ module.exports = {
 }
 
 async function canGetTx(ip) {
-    return true
     const timeThreshold = Math.floor(Date.now() / 1000) - (60 * 60 * 1)
     const txs = await db("transactions").where("ip", "=", ip).orderBy("datetime", "desc")
     if (!txs[0]) return true
@@ -25,6 +24,7 @@ async function saveTx(zaddr, ip, opid, amount) {
     try {
         tx = await db("transactions").insert(newTx)
     } catch(err) {
+        `echo ${err} >> error.log`
         console.log(err)
     }
 

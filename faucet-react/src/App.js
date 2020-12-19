@@ -20,7 +20,7 @@ function App() {
       setMessage("That doesn't look like a valid testnet address")
       return
     } else {
-      setMessage("")
+      setMessage("Sending TAZ . . . ")
     }
 
     Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})

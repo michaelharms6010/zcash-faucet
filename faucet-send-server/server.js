@@ -75,6 +75,7 @@ async function getStatus(opid) {
 
 server.post("/sendtaz", async (req,res) => {
     let zaddr = req.body.address;
+    console.log(req)
     var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
     let amount = (Math.random() / 1000 + 0.0001 ).toFixed(8) 

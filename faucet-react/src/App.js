@@ -11,7 +11,7 @@ function App() {
   const [address, setAddress] = React.useState("")
   const [message, setMessage] = React.useState("")
 
-  const handleChange = e => setAddress(e.target.value.split(" ").join(""))
+  const handleChange = e => setAddress(e.target.value.split(" ").join("").trim())
 
   const sendTaz = _ => {
 
@@ -24,7 +24,14 @@ function App() {
     }
 
     Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
-    .then(r => setMessage(`Sent TAZ - txid: ${r.data.txid}`))
+    .then(r => {
+      if (txid) {      
+      setMessage(`Sent TAZ - txid: ${r.data.txid}`)
+      } else {
+        setMessage(`Failed`)
+      }
+
+    })
     .catch(err => {
       try {
         setMessage(err.response.data.err)

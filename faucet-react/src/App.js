@@ -41,7 +41,6 @@ function App() {
 
     Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
     .then(r => {
-      console.log(r)
       if (r.data.opid) {
 
         var channel = pusher.subscribe('tx-notif');

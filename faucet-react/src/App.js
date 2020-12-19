@@ -11,7 +11,7 @@ function App() {
   const [address, setAddress] = React.useState("")
   const [message, setMessage] = React.useState("")
 
-  const handleChange = e => setAddress(e.target.value.split(" ").join("").trim())
+  const handleChange = e => setAddress(e.target.value.split(/[ \n\t]/).join(""))
 
   const sendTaz = _ => {
 

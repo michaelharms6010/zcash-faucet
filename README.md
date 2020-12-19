@@ -27,13 +27,14 @@ server {
     try_files /maintenance.html $uri $uri/ =404;
   }
 
-    location /api/ {
-      rewrite ^/api(/.*)$ $1 break;
-      proxy_set_header  X-Forwarded-For $remote_addr;
-      proxy_set_header  X-Real-IP  $remote_addr;
-      proxy_set_header  Host       $http_host;
-      proxy_pass http://127.0.0.1:5000;
-    }
+  location /api/ {
+    rewrite ^/api(/.*)$ $1 break;
+    proxy_set_header  X-Forwarded-For $remote_addr;
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  Host       $http_host;
+    proxy_pass http://127.0.0.1:5000;
+  }
+}
 ```
 
 Everything else in my nginx conf is just certbot  boilerplate.

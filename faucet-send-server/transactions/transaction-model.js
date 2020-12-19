@@ -8,7 +8,8 @@ module.exports = {
 
 async function canGetTx(ip) {
     const timeThreshold = Math.floor(Date.now() / 1000) - (60 * 60 * 1)
-    const txs = await db("transactions").where("ip", "=", ip).orderBy("datetime", "desc")
+    let txs = await db("transactions").where("ip", "=", ip).orderBy("datetime", "desc")
+    txs = txs.filter(tx => tx.txid )
     if (!txs[0]) return true
     return  !(+txs[0].datetime > timeThreshold)
 

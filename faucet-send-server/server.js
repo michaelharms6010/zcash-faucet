@@ -18,8 +18,8 @@ const Pusher = require("pusher");
 
 const pusher = new Pusher({
   appId: "1126204",
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
+  key: "4e18f1b8741914d03145",
+  secret: "3d2e94c5b0a7d3af6e76",
   cluster: "us2",
   useTLS: true
 });

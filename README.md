@@ -18,7 +18,11 @@ In `/faucet-send-server/`, create a `.env` file. You'll need to specify two valu
 ```
 ZCASH_RPC_CREDS=<yourusername>:<yourpassword>
 MASTER_ZADDR=ztestsapling.... (The zaddr that funds faucet payments)
+PUSHER_SECRET=fjdlksa
+PUSHER_KEY=3jh2l
 ```
+
+i used pusher as a quick, free solution for websockets. You can quickly sign up and get keys for your specific faucet. Without websockets, there's a good solution with an automated reload and an opid check, but I've not built it yet.
 
 in `/faucet-send-server`, run `npm i` then `npm run server` (or better, use pm2 to run the server) will bring up the wallet api (this exists only so Chrome can get cors headers that it's happy with when we do our zcash rpc. if you know a better way, please let me know)
 

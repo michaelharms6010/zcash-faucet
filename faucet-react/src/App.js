@@ -4,7 +4,7 @@ import React from "react"
 
 const zaddrRegex = /^ztestsapling[a-z0-9]{76}$/i
 const taddrRegex = /^tm[a-z0-9]{33}$/i
-const isValidAddress = address => zaddrRegex.test(address) && zaddrRegex.test(address)
+const isValidAddress = address => zaddrRegex.test(address) || taddrRegex.test(address)
 
 function App() { 
 

@@ -95,6 +95,7 @@ server.post("/sendtaz", async (req,res) => {
                 saveTx(zaddr, ip, opid, amount).then(async r => {
                     let txComplete = false;
                     let result;
+                    res.status(200).json({message: "Sending", opid })
                     while (!txComplete) {
                         let status = await getStatus(opid);
                         console.log(status.data.result)

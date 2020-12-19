@@ -25,19 +25,27 @@ function App() {
 
     Axios.post("http://localhost:5000/sendtaz", {address})
     .then(r => console.log(r))
-    .catch(err => setMessage(err.response.data.err))
+    .catch(err => {
+      try {
+        setMessage(err.response.data.err)
+      } catch {
+        setMessage("Unknown Wallet Error")
+      }
+    })
   }
 
   return (
     <div className="main">
       <div className="faucet-container">
         <h2>Testnet Zcash Faucet</h2>
-        <input 
-          name="to_address"
-          value={address}
-          onChange={handleChange} 
-        />
-        <button onClick={sendTaz}>Send</button>
+        <div className="input-button-pair">
+          <textarea 
+            name="to_address"
+            value={address}
+            onChange={handleChange} 
+          />
+          <button onClick={sendTaz}>Request</button>
+        </div>
         {message && <h3>{message}</h3>}
       </div>
     </div>

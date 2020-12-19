@@ -1,21 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+
 .main {
   height: 80vh;
   display: flex;
   justify-content: center;
   align-items:center;
   text-align: center;
-  box-sizing: border-box;
+  
 }
 
-.main input {
+.main textarea {
   width: 400px;
+  height: 2.5rem;
+  border-width: 1px;
+  border-radius: 7px 0px 0px 7px;
+  resize: none;
 }
 
-.main button {
-  width: 80px
+.input-button-pair button {
+  width: 80px;
+  padding: 2px;
+  border-width: 1px 1px 1px 0;
+  height: 2.5rem;
+  border-radius: 0px 7px 7px 0px;
 }
 
 
-.faucet-container {
+.input-button-pair {
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
 }

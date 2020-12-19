@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100vh;
+  background: #333;
+}
+
+h1, h2, h3, h4, h5, p, span {
+  color: #F9BB00;
+}
+
 
 .main {
   height: 80vh;
@@ -26,6 +35,8 @@
   border-width: 1px 1px 1px 0;
   height: 2.5rem;
   border-radius: 0px 7px 7px 0px;
+  background: #F9BB00;
+  color: black;
 }
 
 
@@ -34,4 +45,15 @@
   justify-content:center;
   align-items:center;
 
+}
+
+#disclaimer {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  width: 200px;
+}
+
+#disclaimer a {
+  color:  #F9BB00;
 }

@@ -47,7 +47,6 @@ async function sendZcash(zaddr, amount) {
 
 async function getStatus(opid) {
     let r;
-    console.log([JSON.stringify([opid])])
     try {
         r = await axios({
             method: 'post',
@@ -89,7 +88,7 @@ server.post("/sendtaz", async (req,res) => {
                     while (!txComplete) {
                         let status = await getStatus(opid);
                         console.log(status.data.result)
-                        await sleep(1000)
+                        await sleep(2000)
                         if (status.data.result[0].status != "executing") {
                             txComplete = true;
                             result = status.data.result[0]

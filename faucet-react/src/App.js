@@ -25,7 +25,7 @@ function App() {
 
     Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
     .then(r => {
-      if (txid) {      
+      if (r.data.txid) {      
       setMessage(`Sent TAZ - txid: ${r.data.txid}`)
       } else {
         setMessage(`Failed`)

@@ -25,8 +25,12 @@ function App() {
 
     Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
     .then(r => {
-      if (r.data.txid) {      
-      setMessage(`Sent TAZ - txid: ${r.data.txid}`)
+      console.log(r)
+      if (r.data.opid) {
+        var channel = pusher.subscribe('tx-notif');
+        channel.bind(r.data.opid, function(data) {
+          setMessage(`Sent TAZ - txid: ${data.txid}`)
+        });      
       } else {
         setMessage(`Failed`)
       }
@@ -42,6 +46,14 @@ function App() {
       }
     })
   }
+
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('4e18f1b8741914d03145', {
+      cluster: 'us2'
+    });
+
+    
 
   return (
     <div className="main">

@@ -45,6 +45,8 @@ server {
 }
 ```
 
+In this way https traffic to urls matching `/api/` is routed to our node app on port 5000. Since the faucet only does one thing, that's not super helpful in this case, but it's super extensible and this node server rpc middleman thing seems to be a road travelled by many greats
+
 Everything else in my nginx conf is just certbot boilerplate.
 
 Assuming your server has http/https open and configured... you should be set to fly and faucet out some coinage. Nice!

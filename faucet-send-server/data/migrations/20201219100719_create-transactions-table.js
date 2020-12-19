@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable("transactions", tbl => {
-      tbl.string("opid").uniqui()
+      tbl.string("opid").unique()
       tbl.string("amount")
       tbl.integer("datetime")
       tbl.string("ip")

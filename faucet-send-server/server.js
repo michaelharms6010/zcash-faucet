@@ -43,6 +43,32 @@ async function sendZcash(zaddr, amount) {
     }
 }
 
+async function getStatus(opid) {
+    let r;
+    try {
+        r = await axios({
+            method: 'post',
+            // url: "http://localhost:8232",
+            url: "http://localhost:18232",
+            headers: {
+                "Authorization": creds, 
+                'content-type': "application/json"
+            }, 
+            data: {
+                "jsonrpc": "1.0",
+                "id":"curltest", 
+                "method": "z_sendmany", 
+                "params": [process.env.MASTER_ZADDR, [{"address": zaddr ,"amount": amount, "memo": "00"}]] 
+            }
+        })
+    
+        return r
+    } catch (err) {
+        console.log(err.response.data.error)
+    }
+}
+
+
 server.post("/sendtaz", async (req,res) => {
     let zaddr = req.body.address;
     var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;

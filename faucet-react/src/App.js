@@ -68,7 +68,7 @@ function App() {
           />
           <button onClick={sendTaz}>Request</button>
         </div>
-        {message && <h3>{message}</h3>}
+        {message && <h3 className="zaddr">{message}</h3>}
       </div>
       <p id="disclaimer">With love from Mike at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
     </div>

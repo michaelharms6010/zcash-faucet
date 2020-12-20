@@ -79,7 +79,7 @@ function App() {
             value={address}
             onChange={handleChange} 
           />
-          <button onClick={sendTaz}>Request</button>
+          <button onClick={sendTaz}>Request TAZ</button>
         </div>
         <h3 style={{color: message === "." ? "#333" : "#f9bb00"}} className="zaddr">{message}</h3>
       </div>

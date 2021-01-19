@@ -1,6 +1,6 @@
 # React / Node zcash faucet
 
-This is a simple testnet faucet. You can set it up on any machine running a zcashd fullnode relatively simply.
+This is a simple zcash faucet (currently configured for testnet). You can set it up on any machine running a zcashd fullnode relatively simply.
 
 ## Installation
 

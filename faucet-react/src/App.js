@@ -4,7 +4,7 @@ import React from "react"
 import Pusher from 'pusher-js';
 
 const zaddrRegex = /^ztestsapling[a-z0-9]{76}$/i
-const taddrRegex = /^tm[a-z0-9]{33}$/i
+const taddrRegex = /((^tm[a-z0-9]{33}$)|(^t2[a-z0-9]{33}$))/i
 const isValidAddress = address => zaddrRegex.test(address) || taddrRegex.test(address)
 
 var pusher;

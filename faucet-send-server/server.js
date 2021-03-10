@@ -8,13 +8,13 @@ const creds = 'Basic ' + Buffer.from(rpcCreds).toString('base64').trim()
 const {canGetTx, saveTx, addTxId} = require("./transactions/transaction-model")
 const sleep = require("./helpers/sleep")
 
-const TESTING_ZADDR = "ztestsapling18ul4pykvaglhjtfvgad7prgsks8fnx906xtjmq6vx3p8njqpurwhsndvf06yvw09ct7cwandp7w"
-
-
-
 const server = express();
 
 const Pusher = require("pusher");
+
+
+// todos - shuffle and env pusher creds
+// move model / endpoint functions to helper file
 
 const pusher = new Pusher({
   appId: "1126204",

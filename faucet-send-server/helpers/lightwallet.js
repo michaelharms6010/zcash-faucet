@@ -6,7 +6,6 @@ const Txns = require("../users/transactions/transactions-model");
 
 module.exports = {
     getNewDeposits,
-    // sendWithdrawl
 }
 
 function getNewDeposits() {

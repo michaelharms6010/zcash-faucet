@@ -8,8 +8,12 @@ Clone this lovely repo. do an `npm i` in both the server and the react app direc
 
 ### Prereqs
 
-- A server. I'm using a t2.large.
-- Nodejs. I mostly use Node 12.20. Google "how to get/use nvm" if you don't know how to install Node.
+- A server.
+- Node 12. https://github.com/nvm-sh/nvm - Install this, then
+```
+nvm install v12
+nvm use v12
+```
 
 #### Environment configuration:
 

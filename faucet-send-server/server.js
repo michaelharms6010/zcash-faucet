@@ -37,10 +37,10 @@ server.post("/sendtaz", async (req,res) => {
     let zaddr = req.body.address;
     let time = req.body.time;
     const ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-    
+
      if (await canGetTx(ip, zaddr)) {
         saveTx(zaddr, ip).then(r => {
-            lightWallet.sendFaucet(zaddr, time)
+            lightwallet.sendFaucet(zaddr, time)
             res.status(200).json({message: "Sending TAZ..."})
         }).catch(err => console.log(err))
     } else {

@@ -22,7 +22,7 @@ module.exports = {
 }
 
 function sync() {
-	exec(`./zecwallet-cli sync`, (err, stdout, stderr) => {
+	exec(`./testnet-zecwallet-cli sync`, (err, stdout, stderr) => {
 		console.log(err)
 		console.log(stderr)
 		console.log(stdout)
@@ -30,7 +30,7 @@ function sync() {
 }
 
 function sendFaucet(zaddr, time) {
-	exec(`./zecwallet-cli send 1000000 ${zaddr}`, (err, stdout, stderr) => {
+	exec(`./testnet-zecwallet-cli send 1000000 ${zaddr}`, (err, stdout, stderr) => {
 		console.log(err)
 		console.log(stderr)
 		console.log(stdout)

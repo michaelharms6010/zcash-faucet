@@ -86,11 +86,16 @@ async function getStatus(opid) {
 server.post("/sendtaz", async (req,res) => {
     let zaddr = req.body.address;
     let time = req.body.time;
-    console.log(req)
-    var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+    const ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
-    lightwallet.sendFaucet(zaddr, time)
-    
+     if (await canGetTx(ip, zaddr)) {
+        saveTx(zaddr, ip).then(r => {
+            lightWallet.sendFaucet(zaddr, time)
+            res.status(200).json({message: "Sending TAZ..."})
+        }).catch(err => console.log(err))
+    } else {
+        res.status(400).json({err: "You can only tap the faucet once every 15 minutes."})
+    }  
 })
 
 

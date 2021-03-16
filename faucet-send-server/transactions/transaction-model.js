@@ -19,9 +19,9 @@ function addTxId(opid, txid) {
     return db("transactions").where({opid}).update({txid})
 }
 
-async function saveTx(zaddr, ip, opid, amount) {
-    const datetime = Math.floor(Date.now() / 1000) 
-    const newTx = {zaddr, ip, opid, amount, datetime}
+async function saveTx(zaddr, ip) {
+
+    const newTx = {zaddr, id}
     try {
         tx = await db("transactions").insert(newTx)
     } catch(err) {

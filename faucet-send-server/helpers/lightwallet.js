@@ -28,8 +28,8 @@ function sendFaucet(zaddr, time) {
 		console.log(err)
 		console.log(stderr)
 		console.log(stdout)
+		
 		stdout = JSON.parse(stdout)
-		var ip = "0.0.0.0"
 
 		pusher.trigger("tx-notif", time, {
 				txid: stdout.txid

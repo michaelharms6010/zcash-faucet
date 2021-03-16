@@ -36,14 +36,14 @@ function App() {
       
     }
 
-    Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
+    Axios.post("https://faucet.zecpages.com/api/sendtaz", {time:  Date.now(), address})
     .then(r => {
       if (r.data.opid) {
 
         var channel = pusher.subscribe('tx-notif');
         channel.bind(r.data.opid, function(data) {
           if (data.txid) {
-          setMessage(`Sent TAZ - txid: ${data.txid}`)
+            setMessage(`Sent TAZ - txid: ${data.txid}`)
           } else {
             setMessage(data.error)
           }

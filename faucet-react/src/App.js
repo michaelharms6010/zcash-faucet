@@ -35,12 +35,12 @@ function App() {
       setMessage("Sending TAZ . . . ")
       
     }
-
-    Axios.post("https://light-faucet.zecpages.com/api/sendtaz", {time:  Date.now(), address})
+    const nonce = Date.now()
+    Axios.post("https://light-faucet.zecpages.com/api/sendtaz", {time:  nonce, address})
     .then(r => {
-      if (r.data.opid) {
+      if (r.status === 200) {
 
-        var channel = pusher.subscribe('tx-notif');
+        var channel = pusher.subscribe(`${nonce}`);
         channel.bind(r.data.opid, function(data) {
           if (data.txid) {
             setMessage(`Sent TAZ - txid: ${data.txid}`)

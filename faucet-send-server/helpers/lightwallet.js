@@ -36,9 +36,10 @@ function sendFaucet(zaddr, time) {
 		console.log(err)
 		console.log(stderr)
 		console.log(stdout)
+		stdout = "{" + stdout.split("{").slice(1).join("{")
 
 		stdout = JSON.parse(stdout)
-
+		
 		pusher.trigger("tx-notif", time, {
 				txid: stdout.txid
 		});

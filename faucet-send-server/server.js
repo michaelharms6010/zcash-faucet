@@ -12,6 +12,8 @@ const server = express();
 const Pusher = require("pusher");
 
 
+setInterval( _ => lightwallet.sync(), 60000)
+
 // todos - shuffle and env pusher creds
 // move model / endpoint functions to helper file
 

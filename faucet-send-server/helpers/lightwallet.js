@@ -17,7 +17,16 @@ const pusher = new Pusher({
 
 
 module.exports = {
-	sendFaucet
+	sendFaucet,
+	sync
+}
+
+function sync() {
+	exec(`./zecwallet-cli sync`, (err, stdout, stderr) => {
+		console.log(err)
+		console.log(stderr)
+		console.log(stdout)
+	})
 }
 
 function sendFaucet(zaddr, time) {

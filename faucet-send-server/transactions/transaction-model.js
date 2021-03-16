@@ -21,7 +21,7 @@ function addTxId(opid, txid) {
 
 async function saveTx(zaddr, ip) {
 
-    const newTx = {zaddr, id}
+    const newTx = {zaddr, ip}
     try {
         tx = await db("transactions").insert(newTx)
     } catch(err) {

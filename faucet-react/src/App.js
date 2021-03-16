@@ -36,7 +36,7 @@ function App() {
       
     }
 
-    Axios.post("https://faucet.zecpages.com/api/sendtaz", {time:  Date.now(), address})
+    Axios.post("https://light-faucet.zecpages.com/api/sendtaz", {time:  Date.now(), address})
     .then(r => {
       if (r.data.opid) {
 

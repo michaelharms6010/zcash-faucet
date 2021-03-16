@@ -30,7 +30,9 @@ function sync() {
 }
 
 function sendFaucet(zaddr, time) {
-	exec(`./testnet-zecwallet-cli send 1000000 ${zaddr}`, (err, stdout, stderr) => {
+	console.log("Zaddr:", zaddr)
+	console.log("time:", time)
+	exec(`./testnet-zecwallet-cli send ${zaddr} 1000000`, (err, stdout, stderr) => {
 		console.log(err)
 		console.log(stderr)
 		console.log(stdout)

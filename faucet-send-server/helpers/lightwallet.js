@@ -40,7 +40,7 @@ function sendFaucet(zaddr, time) {
 
 		stdout = JSON.parse(stdout)
 		
-		pusher.trigger("tx-notif", time, {
+		pusher.trigger("tx-notif", `${time}`, {
 				txid: stdout.txid
 		});
 	})

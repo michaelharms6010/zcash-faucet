@@ -40,8 +40,8 @@ function App() {
     .then(r => {
       if (r.status === 200) {
 
-        var channel = pusher.subscribe(`${nonce}`);
-        channel.bind(r.data.opid, function(data) {
+        var channel = pusher.subscribe('tx-notif');
+        channel.bind(`${nonce}`, function(data) {
           if (data.txid) {
             setMessage(`Sent TAZ - txid: ${data.txid}`)
           } else {

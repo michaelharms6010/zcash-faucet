@@ -2,6 +2,8 @@ import './App.css';
 import Axios from "axios"
 import React from "react"
 import Pusher from 'pusher-js';
+import NewTabLink from "./components/NewTabLink"
+import zomgLogo from "./images/zomg-logo.png"
 
 const zaddrRegex = /^ztestsapling[a-z0-9]{76}$/i
 const taddrRegex = /((^tm[a-z0-9]{33}$)|(^t2[a-z0-9]{33}$))/i
@@ -35,15 +37,15 @@ function App() {
       setMessage("Sending TAZ . . . ")
       
     }
-
-    Axios.post("https://faucet.zecpages.com/api/sendtaz", {address})
+    const nonce = Date.now()
+    Axios.post("https://light-faucet.zecpages.com/api/sendtaz", {time:  nonce, address})
     .then(r => {
-      if (r.data.opid) {
+      if (r.status === 200) {
 
         var channel = pusher.subscribe('tx-notif');
-        channel.bind(r.data.opid, function(data) {
+        channel.bind(`${nonce}`, function(data) {
           if (data.txid) {
-          setMessage(`Sent TAZ - txid: ${data.txid}`)
+            setMessage(`Sent TAZ - txid: ${data.txid}`)
           } else {
             setMessage(data.error)
           }
@@ -54,13 +56,7 @@ function App() {
 
     })
     .catch(err => {
-      try {
-        if (err && err.response && err.response.data && err.response.data.err) {
-        setMessage(err.response.data.err)
-        }
-      } catch {
-        setMessage("Unknown Wallet Error")
-      }
+      console.log(err)
     })
   }
 
@@ -83,7 +79,9 @@ function App() {
         </div>
         <h3 style={{color: message === "." ? "#333" : "#f9bb00"}} className="zaddr">{message}</h3>
       </div>
-      <p id="disclaimer">With love from <a href="https://twitter.com/michaelharms70" target="_blank" rel="noopener noreferrer" >Mike</a> at <a target="_blank" rel="noopener noreferrer" href="https://zecpages.com">Zecpages</a> 🧡</p>
+      <p id="disclaimer">With love from <NewTabLink href="https://zecpages.com">Zecpages</NewTabLink> 🧡 <br/>
+        <span className="zomg-credit">and a grant from <NewTabLink className="zomg-link" href="https://zcashomg.org/">ZOMG<img className="zomg-logo" src={zomgLogo} alt="Zcash Open Major Grants Logo"/></NewTabLink></span>
+      </p>
     </div>
   );
 }

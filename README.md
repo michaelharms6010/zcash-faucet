@@ -27,9 +27,7 @@ in `faucet-send-server/` run `npm i`, `npm run server` (or better, use pm2 to ru
 
 in `faucet-react/` run `npm run build` to build the react app.
 
-#### Light Wallet
-
-If you can't/don't want to run a full node, check out `faucet-send-server/helpers/lightwallet.js` for some example helper functions using [zecwallet-cli](https://github.com/adityapk00/zecwallet-light-cli) and child processes. You'll also have to add your own zecwallet-cli inside `faucet-send-server/` for this to work. There's an example implementation on the `light-faucet` branch.
+#### Nginx Conf
 
 You can wire the apps together via nginx thusly:
 
@@ -56,3 +54,7 @@ In this way https traffic to urls matching `/api/` is routed to our node app on 
 Everything else in my nginx conf is just certbot boilerplate.
 
 Assuming your server has http/https open and configured... you should be set to fly and faucet out some coinage. Nice!
+
+#### Light Wallet
+
+If you can't/don't want to run a full node, check out `faucet-send-server/helpers/lightwallet.js` for some example helper functions using [zecwallet-cli](https://github.com/adityapk00/zecwallet-light-cli) and child processes. You'll also have to add your own zecwallet-cli inside `faucet-send-server/` for this to work. There's an example implementation on the `light-faucet` branch.

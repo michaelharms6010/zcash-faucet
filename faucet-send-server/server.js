@@ -4,22 +4,23 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const axios = require("axios")
 const rpcCreds = process.env.ZCASH_RPC_CREDS;
-const creds = 'Basic ' + Buffer.from(rpcCreds).toString('base64').trim()
-const {canGetTx, saveTx, addTxId} = require("./transactions/transaction-model")
-const sleep = require("./helpers/sleep")
+const creds = 'Basic ' + Buffer.from(rpcCreds).toString('base64').trim();
+const {canGetTx, saveTx, addTxId} = require("./transactions/transaction-model");
+const sleep = require("./helpers/sleep");
+const {sendZcash, getStatus} = require("./helpers/rpc");
+
+const TESTING_ZADDR = "ztestsapling18ul4pykvaglhjtfvgad7prgsks8fnx906xtjmq6vx3p8njqpurwhsndvf06yvw09ct7cwandp7w"
+
+
 
 const server = express();
 
 const Pusher = require("pusher");
 
-
-// todos - shuffle and env pusher creds
-// move model / endpoint functions to helper file
-
 const pusher = new Pusher({
-  appId: "1126204",
-  key: "4e18f1b8741914d03145",
-  secret: "3d2e94c5b0a7d3af6e76",
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
   cluster: "us2",
   useTLS: true
 });
@@ -31,67 +32,17 @@ server.use(cors());
 server.use(express.json());
 server.use(morgan("dev"));
 
-async function sendZcash(zaddr, amount) {
-    let r;
-    try {
-        r = await axios({
-            method: 'post',
-            // url: "http://localhost:8232",
-            url: "http://localhost:18232",
-            headers: {
-                "Authorization": creds, 
-                'content-type': "application/json"
-            }, 
-            data: {
-                "jsonrpc": "1.0",
-                "id":"curltest", 
-                "method": "z_sendmany", 
-                "params": [process.env.MASTER_ZADDR, [{"address": zaddr ,"amount": amount }]] 
-            }
-        })
-        console.log(r)
-        return r
-    } catch (err) {
-        console.log(err.response.data.error)
-    }
-}
-
-async function getStatus(opid) {
-    let r;
-    try {
-        r = await axios({
-            method: 'post',
-            // url: "http://localhost:8232",
-            url: "http://localhost:18232",
-            headers: {
-                "Authorization": creds, 
-                'content-type': "application/json"
-            }, 
-            data: {
-                "jsonrpc": "1.0",
-                "id":"curltest", 
-                "method": "z_getoperationstatus", 
-                "params": [[opid]] 
-            }
-        })
-        console.log(r.data.result.status)
-        return r
-    } catch (err) {
-        console.log(err.response.data.error)
-    }
-}
-
 
 server.post("/sendtaz", async (req,res) => {
     let zaddr = req.body.address;
     console.log(req)
     var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
-    let amount = (Math.random() / 4 + 0.0001 ).toFixed(8) 
+    let amount = (Math.random() / 4 + 0.0001 ).toFixed(8)
     if (await canGetTx(ip, zaddr)) {
         sendZcash(zaddr, amount)
             .then(r => {
-                const opid = r.data.result;
+                const opid = r.data.result; // an opid isn't a txid! We check the opid until the tx is complete, then pass back the txid
                 saveTx(zaddr, ip, opid, amount).then(async r => {
                     let txComplete = false;
                     let result;
@@ -124,9 +75,8 @@ server.post("/sendtaz", async (req,res) => {
                 `echo ${err} >> error.log`
                 res.status(500).json({message: "failed"})})
     } else {
-        res.status(400).json({err: "You can only tap the faucet once every 15 minutes."})
+        res.status(400).json({err: "You can only tap the faucet once every 2 minutes."})
     }
-    
 })
 
 

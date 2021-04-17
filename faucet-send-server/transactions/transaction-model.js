@@ -7,7 +7,7 @@ module.exports = {
 }
 
 async function canGetTx(ip, zaddr) {
-    const timeThreshold = Math.floor(Date.now() / 1000) - (60 * 15)
+    const timeThreshold = Math.floor(Date.now() / 1000) - (60 * 2)
     let txs = await db("transactions").where("ip", "=", ip).orWhere("zaddr", "=", zaddr).orderBy("datetime", "desc")
     txs = txs.filter(tx => tx.txid && tx.datetime < Math.floor(Date.now() / 1000) - 60 )
     if (!txs[0]) return true

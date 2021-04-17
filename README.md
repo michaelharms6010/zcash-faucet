@@ -1,13 +1,7 @@
 # React / Node zcash faucet
 
-This is a simple zcash faucet (currently configured for testnet, just change the ports in rpc.js for mainnet). You can set it up on any machine running a zcashd fullnode relatively simply.
+This is a simple zcash faucet (currently configured to run on testnet, you can change the port in rpc.js for mainnet). You can set it up on any machine running a zcashd fullnode relatively simply.
 
-## Installation
-
-Clone this repo. Install dependencies in both the react and node app with `npm i`
-```
-cd 
-```
 ### Prereqs
 
 - A server running ubuntu

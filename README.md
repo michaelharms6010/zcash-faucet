@@ -11,12 +11,27 @@ nvm install v12
 nvm use v12
 ```
 
+### Zcash config
+Sync a Zcash node. Edit ~/.zcash/zcash.conf and make sure you have the following configuration:
+
+```
+addnode=mainnet.z.cash
+addnode=testnet.z.cash
+rpcuser=username
+rpcpassword=yourpassword
+server=1
+listen=1
+testnet=1
+rpcport=18232
+rpcbind=127.0.0.1
+```
+
 #### Environment configuration:
 
 In `faucet-send-server/`, create a `.env` file. The faucet uses a few things, but the most important is your Zcash RPC creds - these authenticate with your full node.
 
 ```
-ZCASH_RPC_CREDS=<yourusername>:<yourpassword>
+ZCASH_RPC_CREDS=<rpcuser>:<yourpassword>
 MASTER_ZADDR=ztestsapling.... (The zaddr that funds faucet payments)
 PUSHER_APP_ID=111111111
 PUSHER_KEY=4e1xxxxxxxxxxxxa1

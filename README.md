@@ -2,7 +2,7 @@
 
 This is a simple zcash faucet (currently configured to run on testnet, you can change the port in rpc.js for mainnet). You can set it up on any machine running a zcashd fullnode relatively simply.
 
-### Prereqs
+### Prerequisites
 
 - A server running ubuntu
 - Node 12+. https://github.com/nvm-sh/nvm - Install this per its instructions, then
@@ -27,7 +27,7 @@ in `faucet-send-server/` run `npm i`, `npm run server` (or better, use pm2 to ru
 
 in `faucet-react/` run `npm run build` to build the react app.
 
-#### Nginx Conf
+#### Nginx Configuration
 
 You can wire the apps together via nginx thusly:
 

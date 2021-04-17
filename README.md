@@ -1,15 +1,15 @@
 # React / Node zcash faucet
 
-This is a simple zcash faucet (currently configured for testnet). You can set it up on any machine running a zcashd fullnode relatively simply.
+This is a simple zcash faucet (currently configured for testnet, just change the ports in rpc.js for mainnet). You can set it up on any machine running a zcashd fullnode relatively simply.
 
 ## Installation
 
-Clone this lovely repo. do an `npm i` in both the server and the react app directories.
+Clone this lovely repo. Install dependencies in both the react and node app with `npm i`
 
 ### Prereqs
 
 - A server.
-- Node 12. https://github.com/nvm-sh/nvm - Install this, then
+- Node 12+. https://github.com/nvm-sh/nvm - Install this, then
 ```
 nvm install v12
 nvm use v12
@@ -22,12 +22,16 @@ In `/faucet-send-server/`, create a `.env` file. You'll need to specify two valu
 ```
 ZCASH_RPC_CREDS=<yourusername>:<yourpassword>
 MASTER_ZADDR=ztestsapling.... (The zaddr that funds faucet payments)
+PUSHER_APP_ID=111111111
+PUSHER_KEY=4e1xxxxxxxxxxxxa1
+PUSHER_SECRET=3d2xxxxxxxxxxxxxx // Pusher notif provider creds - used for delivering txid back to user
 ```
-Right now the Pusher websocket handling isn't environment specific. It makes it easier for your to fork and run your own, and is totally fine since the channels are all opid-specific. That's totally subject to change if it becomes a problem.
 
-in `/faucet-send-server`, run `npm i` then `npm run server` (or better, use pm2 to run the server) will bring up the wallet api (this exists only so Chrome can get cors headers that it's happy with when we do our zcash rpc. if you know a better way, please let me know)
+in `faucet-send-server`, `npm run server` (or better, use pm2 to run the server) start the node api. It has two roles: Rate limiting and middle-manning Zcash RPC requests.
 
-in `/faucet-react` run `npm i` to get dependencies, then `npm run build` to build the react app.
+in `faucet-react` run `npm run build` to build the react app.
+
+If you can't/don't want to run a full node, check out `faucet-send-server/helpers/lightwallet.js` for some example helper functions using zecwallet-cli and chlid processes. You'll also have to add an installation zecwallet-cli inside `faucet-send-server` for this to work.
 
 You can wire the apps together via nginx thusly:
 

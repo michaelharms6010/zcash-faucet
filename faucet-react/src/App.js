@@ -38,7 +38,7 @@ function App() {
       
     }
     const nonce = Date.now()
-    Axios.post("https://light-faucet.zecpages.com/api/sendtaz", {time:  nonce, address})
+    Axios.post("https://faucet.zecpages.com/api/sendtaz", {time:  nonce, address})
     .then(r => {
       if (r.status === 200) {
 

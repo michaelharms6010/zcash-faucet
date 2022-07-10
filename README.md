@@ -4,7 +4,7 @@ This is a simple zcash faucet (currently configured to run on testnet, you can c
 
 ### Prerequisites
 
-- A server running ubuntu
+- A server running ubuntu (I use a large AWS instance)
 - Node 12+. https://github.com/nvm-sh/nvm - Install this per its instructions, then
 ```
 nvm install v12

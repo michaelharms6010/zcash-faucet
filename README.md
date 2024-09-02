@@ -36,6 +36,11 @@ MASTER_ZADDR=ztestsapling.... (The zaddr that funds faucet payments)
 PUSHER_APP_ID=111111111
 PUSHER_KEY=4e1xxxxxxxxxxxxa1
 PUSHER_SECRET=3d2xxxxxxxxxxxxxx // Pusher notif provider creds - used for delivering txid back to user
+
+app_id = "1126204"
+key = "4e18f1b8741914d03145"
+secret = "3d2e94c5b0a7d3af6e76"
+cluster = "us2"
 ```
 
 in `faucet-send-server/` run `npm i`, `npm run server` (or better, use pm2 to run the server) start the node api. It has two roles: Rate limiting and middle-manning Zcash RPC requests. It has a sqlite db that it uses to count requests and handle rate limiting.

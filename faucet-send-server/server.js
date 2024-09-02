@@ -43,7 +43,6 @@ server.post("/sendtaz", async (req,res) => {
                     res.status(200).json({message: "Sending", opid })
                     while (!txComplete) {
                         let status = await getStatus(opid);
-                        console.log(status.data.result)
                         await sleep(2000)
                         if (status.data.result[0].status != "executing") {
                             txComplete = true;
